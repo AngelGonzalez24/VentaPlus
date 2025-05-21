@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "401023274473",
+    "project_id": "ventaplus-15e7e",
+    "storage_bucket": "ventaplus-15e7e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401023274473:android:c1809c0ebe174e18644f78",
+        "android_client_info": {
+          "package_name": "com.example.ventaplus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjqIjCwJl1ML3xrYdByHmfwo1ljgap4Sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
