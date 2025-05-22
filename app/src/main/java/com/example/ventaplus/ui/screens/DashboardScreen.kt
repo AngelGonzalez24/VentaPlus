@@ -1,8 +1,6 @@
 package com.example.ventaplus.ui.screens
 
 import android.util.Log
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -15,37 +13,36 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.ventaplus.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(navController: NavController) {
     val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
-    val database = FirebaseDatabase.getInstance().reference
 
-    var negocioNombre by remember { mutableStateOf("Cargando...") }
-    var negocioDireccion by remember { mutableStateOf("Ubicación no disponible") }
+    var negocioNombre by remember { mutableStateOf<String?>(null) }
+    var negocioDireccion by remember { mutableStateOf<String?>(null) }
+    var errorLoading by remember { mutableStateOf<String?>(null) }
 
+    // Carga datos negocio desde "usuarios/{uid}/negocio" y "usuarios/{uid}/direccion"
     LaunchedEffect(currentUserId) {
+        if (currentUserId == null) {
+            errorLoading = "Usuario no autenticado"
+            return@LaunchedEffect
+        }
         try {
-            val negocioId = database.child("usuarios").child(currentUserId!!).child("negocioId")
-                .get().await().getValue(String::class.java)
-
-            negocioId?.let {
-                val negocioSnapshot = database.child("negocios").child(it).get().await()
-                negocioNombre = negocioSnapshot.child("nombre").getValue(String::class.java) ?: "Negocio"
-                negocioDireccion = negocioSnapshot.child("direccion").getValue(String::class.java) ?: "Dirección desconocida"
-            }
+            val userRef = FirebaseDatabase.getInstance().reference.child("usuarios").child(currentUserId)
+            val snapshot = userRef.get().await()
+            negocioNombre = snapshot.child("negocio").getValue(String::class.java) ?: "Negocio sin nombre"
+            negocioDireccion = snapshot.child("direccion").getValue(String::class.java) ?: "Dirección no especificada"
         } catch (e: Exception) {
             Log.e("DashboardScreen", "Error al cargar datos del negocio", e)
+            errorLoading = "Error cargando datos"
         }
     }
 
@@ -65,8 +62,16 @@ fun DashboardScreen(navController: NavController) {
             TopAppBar(
                 title = {
                     Column {
-                        Text(text = negocioNombre, fontSize = 20.sp)
-                        Text(text = negocioDireccion, fontSize = 14.sp, color = Color.Gray)
+                        Text(
+                            text = negocioNombre ?: "Cargando...",
+                            fontSize = 22.sp,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                        )
+                        Text(
+                            text = negocioDireccion ?: "",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
                     }
                 },
                 actions = {
@@ -85,22 +90,31 @@ fun DashboardScreen(navController: NavController) {
     ) { paddingValues ->
         Column(
             modifier = Modifier
-                .padding(paddingValues)
                 .fillMaxSize()
+                .padding(paddingValues)
                 .padding(16.dp)
         ) {
+            if (errorLoading != null) {
+                Text(
+                    text = errorLoading!!,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                return@Column
+            }
+
             Text(
-                text = "Panel principal",
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                text = "Panel Principal",
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.ExtraBold)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(18.dp),
+                horizontalArrangement = Arrangement.spacedBy(18.dp),
+                modifier = Modifier.fillMaxSize()
             ) {
                 items(dashboardItems) { item ->
                     DashboardCard(item = item, onClick = {
@@ -119,14 +133,17 @@ fun DashboardCard(item: DashboardItem, onClick: () -> Unit) {
             .fillMaxWidth()
             .aspectRatio(1f)
             .clickable { onClick() },
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = MaterialTheme.shapes.large
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        shape = MaterialTheme.shapes.medium
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -134,13 +151,13 @@ fun DashboardCard(item: DashboardItem, onClick: () -> Unit) {
                 imageVector = item.icon,
                 contentDescription = item.title,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(56.dp)
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = item.title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold
             )
         }
     }

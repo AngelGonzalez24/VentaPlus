@@ -2,40 +2,6 @@
   "usuarios": {
     "ujJ9t2BoiYfPYKjJjVH9TJS6Xol2": {
       "administrador": "Ángel Del Carmen González Alcocer",
-      "correo": "gonzalezalcocera6@gmail.com",
-      "negocio": "Papelería Kimberly",
-      "direccion": "Calle Benito Juárez #123, Col. Centro, Ciudad X",
-      "modoUnicoUsuario": true,
-      "empleados": {
-        "empleado1": {
-          "nombre": "Carlos Pérez",
-          "rol": "Empleado",
-          "correo": "carlos@gmail.com"
-        },
-        "empleado2": {
-          "nombre": "Ana Torres",
-          "rol": "Empleado",
-          "correo": "ana@gmail.com"
-        }
-      },
-      "turnos": {
-        "turno_20250518_0800": {
-          "empleadoId": "empleado1",
-          "nombreEmpleado": "Carlos Pérez",
-          "horaEntrada": "08:00",
-          "horaSalida": "14:00",
-          "fecha": "2025-05-18",
-          "caja": "Caja 1"
-        },
-        "turno_20250518_1400": {
-          "empleadoId": "empleado2",
-          "nombreEmpleado": "Ana Torres",
-          "horaEntrada": "14:00",
-          "horaSalida": "20:00",
-          "fecha": "2025-05-18",
-          "caja": "Caja 2"
-        }
-      },
       "categorias": {
         "Jueguetes": true,
         "Papelería": true,
@@ -43,6 +9,26 @@
         "carnes y mariscos": true,
         "Útiles escolares": true
       },
+      "correo": "gonzalezalcocera6@gmail.com",
+      "direccion": "Carretera del golfo sin número Atasta km 141",
+      "empleados": {
+        "-OQchnQI8x9nkgGAwLvu": {
+          "correo": "agonzalezalcocer8@gmail.com",
+          "nombre": "Carmen Alcocer"
+        },
+        "empleado1": {
+          "correo": "carlos@gmail.com",
+          "nombre": "Carlos Pérez",
+          "rol": "Empleado"
+        },
+        "empleado2": {
+          "correo": "ana@gmail.com",
+          "nombre": "Ana Torres",
+          "rol": "Empleado"
+        }
+      },
+      "modoUnicoUsuario": true,
+      "negocio": "Papelería Alta",
       "productos": {
         "-NvEj8EjTpE0ZsWc2": {
           "categoria": "carnes y mariscos",
@@ -63,6 +49,16 @@
           "porPeso": false,
           "precio": 6,
           "stock": 3
+        },
+        "217c40ba-34d6-4031-b61d-4a5987d3f491": {
+          "categoria": "papelería",
+          "codigoBarras": "7702111812819",
+          "fechaRegistro": "Lunes 19/05/2025 08:09 p. m.",
+          "id": "217c40ba-34d6-4031-b61d-4a5987d3f491",
+          "nombre": "Libreta norma anaranjado",
+          "porPeso": false,
+          "precio": 50,
+          "stock": 28
         },
         "4f4ef518-0511-488d-b244-02104c5e221b": {
           "categoria": "papelería",
@@ -105,12 +101,29 @@
           "stock": 50
         }
       },
+      "turnos": {
+        "turno_20250518_0800": {
+          "caja": "Caja 1",
+          "empleadoId": "empleado1",
+          "fecha": "2025-05-18",
+          "horaEntrada": "08:00",
+          "horaSalida": "14:00",
+          "nombreEmpleado": "Carlos Pérez"
+        },
+        "turno_20250518_1400": {
+          "caja": "Caja 2",
+          "empleadoId": "empleado2",
+          "fecha": "2025-05-18",
+          "horaEntrada": "14:00",
+          "horaSalida": "20:00",
+          "nombreEmpleado": "Ana Torres"
+        }
+      },
       "ventas": {
         "-OQYlknqo6R8Uj-ugM2l": {
-          "fecha": "domingo 18/05/2025 08:23",
-          "turnoId": "turno_20250518_0800",
-          "empleado": "Carlos Pérez",
           "caja": "Caja 1",
+          "empleado": "Carlos Pérez",
+          "fecha": "domingo 18/05/2025 08:23",
           "productos": {
             "8979f920-b876-4142-83d1-8c7670ecf8a4": {
               "cantidad": 1,
@@ -120,13 +133,13 @@
               "precio": 35
             }
           },
-          "total": 35
+          "total": 35,
+          "turnoId": "turno_20250518_0800"
         },
         "-OQYmx7SlpzLaH3kotuK": {
-          "fecha": "domingo 18/05/2025 08:28",
-          "turnoId": "turno_20250518_0800",
-          "empleado": "Carlos Pérez",
           "caja": "Caja 1",
+          "empleado": "Carlos Pérez",
+          "fecha": "domingo 18/05/2025 08:28",
           "productos": {
             "4f4ef518-0511-488d-b244-02104c5e221b": {
               "cantidad": 3,
@@ -139,13 +152,13 @@
               "precio": 35
             }
           },
-          "total": 240
+          "total": 240,
+          "turnoId": "turno_20250518_0800"
         },
         "-OQYnq4kz42H7ShdGIaU": {
-          "fecha": "domingo 18/05/2025 08:32",
-          "turnoId": "turno_20250518_0800",
-          "empleado": "Carlos Pérez",
           "caja": "Caja 1",
+          "empleado": "Carlos Pérez",
+          "fecha": "domingo 18/05/2025 08:32",
           "productos": {
             "4f4ef518-0511-488d-b244-02104c5e221b": {
               "cantidad": 1,
@@ -153,13 +166,13 @@
               "precio": 50
             }
           },
-          "total": 50
+          "total": 50,
+          "turnoId": "turno_20250518_0800"
         },
         "-OQ_FBwImVFIyRDH5h5Q": {
-          "fecha": "domingo 18/05/2025 15:15",
-          "turnoId": "turno_20250518_1400",
-          "empleado": "Ana Torres",
           "caja": "Caja 2",
+          "empleado": "Ana Torres",
+          "fecha": "domingo 18/05/2025 15:15",
           "productos": {
             "4f4ef518-0511-488d-b244-02104c5e221b": {
               "cantidad": 3,
@@ -172,7 +185,19 @@
               "precio": 35
             }
           },
-          "total": 220
+          "total": 220,
+          "turnoId": "turno_20250518_1400"
+        },
+        "-OQfS0EtdELfJuoXsxBX": {
+          "fecha": "lunes 19/05/2025 20:09",
+          "productos": {
+            "217c40ba-34d6-4031-b61d-4a5987d3f491": {
+              "cantidad": 2,
+              "nombre": "Libreta norma anaranjado",
+              "precio": 50
+            }
+          },
+          "total": 100
         }
       }
     }
